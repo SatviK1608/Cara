@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+        <link rel="stylesheet" href="../style.css">
+
+        <link rel="stylesheet" href="../css/cart.css">
+
+    </head>
+
+    <body>
+
+        
+        <section id="header">
+            <a href="../index.html">
+                <img src="../img/logo.png">
+            </a>
+
+
+            <div>
+                <ul id="navbar">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a  href="./shop.html">Buy</a></li>
+                    <li><a  href="./blog.html">Blog</a></li>
+                    <li><a href="./about.html">About Us</a></li>
+                    <li id="lg-bag"><a class="active" href="./cart.html"><i class="far fa-shopping-bag"></i></a></li>
+                    <a href="#" id="close"><i class="far fa-times"></i></a>
+                </ul>
+            </div>
+            <div id="mobile">
+                <a href="./cart.html"><i class="far fa-shopping-bag"></i></a>
+                <i id="bar" class="fas fa-outdent"></i>
+            </div>
+        </section>
+
+
+        <section id="page-header" class="about-header">
+            <h2>
+                #Let's_Talk
+            </h2>
+            <p>Leave a message.We love to hear from you!  </p>
+        </section>
+
+        <section id="cart" class="section-p1">
+            <table width="100%">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Remove</td>
+                            <td>Image</td>
+                            <td>Product</td>
+                            <td>Price</td>
+                            <td>Quantity</td>
+                            <td>Subtotal</td>
+                        </tr>
+                    </thead>    
+
+                    <tbody id="add">
+                        
+                    </tbody>
+
+                </table>
+            </table>
+        </section>
+
+        <section id="cart-add" class="section-p1">
+            <div id="coupon">
+                <h3>Apply Coupon</h3>
+                <div>
+                    <input type="text" placeholder="Enter Your Coupon">
+                    <button class="normal">Apply</button>
+                </div>
+            </div>
+
+            <div id="subtotal">
+                <h3>Cart Total</h3>
+                <table>
+                    <tr>
+                        <td>Cart Subtotal</td>
+                        <td id="ctotal">₹8094</td>
+                    </tr>
+                    <tr>
+                        <td>Shipping</td>
+                        <td>Free</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td><strong id="total">₹8094</strong></td>
+                    </tr>
+                </table>
+
+                <button class="normal">Proceed to checkout</button>
+            </div>
+        </section>
+
+        <footer class="section-p1">
+            <div class="col">
+                <img class="logo" src="../img/logo.png" alt="">
+                <h4>Contact</h4>
+                <p><strong>Email: </strong>satvik1608@gmail.com</p>
+                <p><strong>Phone: </strong>(+91) 9518471836</p>
+                <div class="follow">
+                    <h4>Follow Us</h4>
+                    <div class="icon">
+                        <i class="fab fa-facebook-f"></i>
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-pinterest"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <h4>About</h4>
+                <a href="#">About Us</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Delivery Information</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Contact Us</a>
+            </div>
+
+            <div class="col">
+                <h4>My Account</h4>
+                <a href="#">Sign In</a>
+                <a href="#">View Cart</a>
+                <a href="#">My Wishlist</a>
+                <a href="#">Track My Order</a>
+                <a href="#">Hola</a>
+            </div>
+
+            <div class="col install">
+                <h4>Install App</h4>
+                <p>From App Store or Google Play</p>
+                <div class="row">
+                    <img src="../img/pay/app.jpg" alt="">
+                    <img src="../img/pay/play.jpg" alt="">
+                </div>
+                <p>Secured Payment Gateways</p>
+                <img src="../img/pay/pay.png" alt="">
+
+            </div>
+
+            <div class="copyright">
+                <p>©2023, TechnoBlade Pvt. Ltd.</p> 
+            </div>
+        </footer>
+
+        <script>
+
+            function remove(itemId) {
+
+                let bagItems = b.filter(bagItemId => bagItemId.id != itemId);
+
+                localStorage.setItem('bag', JSON.stringify(bagItems));
+
+                display();
+
+                location.reload();
+
+            }
+            var a;
+            var b;
+            var totalPrice=0;
+            function display(){
+                    var append=document.getElementById("add");
+                    console.log(append);
+                    a=localStorage.getItem('bag');
+                     b = a ? JSON.parse(a) : [];
+                    b.forEach(element => {
+                        let x=document.createElement("tr");
+                        x.innerHTML=`
+                                    <td><a onclick="remove(${element.id})"><i class="far fa-times-circle" )></i></a></td>
+                                    <td><img src="${element.img}" alt=""></td>
+                                    <td>${element.product}</td>
+                                    <td>₹${element.price}</td>
+                                    <td><input type="number" value="${element.qty}"></td>
+                                    <td>₹${element.subtotal}</td>
+                                `    
+                                
+                        append.appendChild(x) ; 
+                        
+                         totalPrice+=element.subtotal;
+
+                    });
+                    document.getElementById("ctotal").innerHTML=`₹${totalPrice}`; 
+                    document.getElementById("total").innerHTML=`₹${totalPrice}`; 
+            }
+
+            display();
+
+            
+            
+            
+
+        </script>
+        
+        <script src="../script.js"></script>
+
+    </body>
+
+</html>
